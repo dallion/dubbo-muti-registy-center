@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.dallion.test</groupId>
+  <artifactId>dubbo-muti-registy-center</artifactId>
+  <version>${revision}</version>
+  <packaging>pom</packaging>
+  
+  <modules>
+    <module>provider-1</module>
+    <module>provider-2</module>
+    <module>consumer-1</module>
+    <module>consumer-2</module>
+  </modules>
+
+  <properties>
+    <!-- Test libs -->
+    <junit_jupiter_version>5.6.0</junit_jupiter_version>
+
+    <!-- Build args -->
+    <argline>-server -Xms256m -Xmx512m -Dfile.encoding=UTF-8
+      -Djava.net.preferIPv4Stack=true -XX:MetaspaceSize=64m
+      -XX:MaxMetaspaceSize=128m
+    </argline>
+
+    <project.build.sourceEncoding>${file_encoding}</project.build.sourceEncoding>
+    <project.build.outputTimestamp>2020-04-01T08:04:00Z</project.build.outputTimestamp>
+    <profile.name>oss</profile.name>
+
+    <!-- for maven compiler plugin -->
+    <java_source_version>1.8</java_source_version>
+    <java_target_version>1.8</java_target_version>
+    <file_encoding>UTF-8</file_encoding>
+    <maven_compiler_version>3.6.0</maven_compiler_version>
+    <revision>1.0.0-SNAPSHOT</revision>
+    <dubbo.version>2.7.5</dubbo.version>
+  </properties>
+  <dependencies>
+    <!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo -->
+    <dependency>
+      <groupId>org.apache.dubbo</groupId>
+      <artifactId>dubbo</artifactId>
+      <version>${dubbo.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.dubbo</groupId>
+      <artifactId>dubbo-dependencies-zookeeper</artifactId>
+      <version>${dubbo.version}</version>
+      <type>pom</type>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <version>1.6.2</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.6.2</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.6.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE file distributed with this 
+  work for additional information regarding copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the "License"); 
+  you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
+  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+  OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. -->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+  xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+  <context:property-placeholder />
+
+  <!-- consumer's application name, used for tracing dependency relationship (not a matching criterion), don't set it same as provider -->
+  <dubbo:application name="context-consumer">
+    <dubbo:parameter key="qos.port" value="55555" />
+  </dubbo:application>
+
+  <dubbo:registry address="zookeeper://127.0.0.1:2181" zone="aliyun" />
+  <dubbo:registry address="zookeeper://127.0.0.1:2181" zone="txyun" />
+
+  <!-- generate proxy for the remote service, then demoService can be used in the same way as the local regular interface -->
+  <dubbo:reference scope="remote" id="helloService" check="false" interface="com.dallion.test.api.HelloService" />
+
+  <!-- 指定优先级 -->
+  <!-- 来自 preferred=“true” 注册中心的地址将被优先选择，只有该中心无可用地址时才 Fallback 到其他注册中心 -->
+  <!-- <dubbo:registry address="zookeeper://${zookeeper.address1}" preferred="true" /> -->
+  <!-- 同 zone 优先 -->
+  <!-- 选址时会和流量中的 zone key 做匹配，流量会优先派发到相同 zone 的地址 -->
+  <!-- <dubbo:registry address="zookeeper://${zookeeper.address1}" zone="beijing" /> -->
+  <!-- 权重轮询 -->
+  <!-- 来自北京和上海集群的地址，将以 10:1 的比例来分配流量 -->
+  <!-- <dubbo:registry id="beijing" address="zookeeper://${zookeeper.address1}" weight=”100“ /> -->
+  <!-- <dubbo:registry id="shanghai" address="zookeeper://${zookeeper.address2}" weight=”10“ /> -->
+
+</beans>
